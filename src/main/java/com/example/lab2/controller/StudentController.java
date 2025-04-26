@@ -46,7 +46,6 @@ public class StudentController {
         String email = params.get("email");
         String groupName = params.get("groupName");
 
-        // если ни одного валидного параметра нет — вернуть 400
         if (firstName == null && lastName == null && email == null && groupName == null) {
             return ResponseEntity.badRequest().body(Collections.emptyList());
         }
@@ -90,7 +89,6 @@ public class StudentController {
         List<Student> students = studentRepository.findAll();
         return ResponseEntity.ok(students);
     }
-    // 🔹 Создание студента
     @PostMapping("/create")
     public ResponseEntity<?> createStudent(@RequestBody Student student) {
         if (studentRepository.existsByEmail(student.getEmail())) {
@@ -101,7 +99,6 @@ public class StudentController {
         return ResponseEntity.ok(savedStudent);
     }
 
-    // 🔹 Получить свои записи
     @GetMapping("/enrollments")
     public ResponseEntity<?> getMyEnrollments() {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
